@@ -1,7 +1,7 @@
 <?php
 ####
-#### Our goal with this class is to ensure that we have complete
-#### control over values set irrelevant of depth or how they are set
+#### Our goal with this class is to give the coder absolute
+#### control over setting array elements irrelevant of depth or how they are set.
 ####
 #### $myArray["foo"]["bar"] = "car";
 ####

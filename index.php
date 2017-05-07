@@ -12,12 +12,15 @@ $myArray = new DeepMagic;
 //$myArray["foo"]["bar"] = "car";
 //$myArray["foo"]["bar"]["car"]["dah"] = "sah";
 
-$myArray[0][0][0][0] = "sah";
+//$myArray[0][0][0][0] = "sah";
 
 // Counter = 3
 // $myArray[] = 1;
 // $myArray[] = 2;
+
 // $myArray[] = 3;
 
+// This does not call offsetExists
+array_key_exists("foo", $myArray);
 
-pr($myArray);
+//pr($myArray);
