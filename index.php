@@ -8,8 +8,11 @@ $myArray = new DeepMagic;
 //$myArray["foo"]["bar"] = "car";
 
 // Counter = 1
-$myArray["foo"]["bar"] = "car";
 
+//$myArray["foo"]["bar"] = "car";
+//$myArray["foo"]["bar"]["car"]["dah"] = "sah";
+
+$myArray[0][0][0][0] = "sah";
 
 // Counter = 3
 // $myArray[] = 1;

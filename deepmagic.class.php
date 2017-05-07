@@ -31,8 +31,19 @@ class DeepMagic implements ArrayAccess {
 	}
 
 	public function &offsetGet ($offset)
-	{
-		pr(__METHOD__, $offset);
+	{	
+
+		// Example:
+		// $myArray["foo"]["bar"]
+		//			  ^
+		//			  |----- When this element is not an array call offsetSet with empty array.
+
+		if (!isset($this->data[$offset]))
+			$this->offsetSet($offset, []);
+
+
+		pr($offset);
+
 		return $this->data[$offset];
 	}
 
@@ -40,7 +51,7 @@ class DeepMagic implements ArrayAccess {
 	{
 		$this->counter++;
 
-		pr(__METHOD__, $offset, $value);
+		//pr(__METHOD__, $offset, $value);
 
         if (is_array($data)) $data = new self($data);
         
