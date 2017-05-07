@@ -3,6 +3,11 @@
 #### Our goal with this class is to ensure that we have complete
 #### control over values set irrelevant of depth or how they are set
 ####
+#### $myArray["foo"]["bar"] = "car";
+####
+#### Currently this example does not call offsetSet but it does set the variable
+#### essentially bypassing any functionality we might want to execute.
+####
 #### For a basic example say we want to increment a counter for everytime
 #### a value is set in our array.
 
