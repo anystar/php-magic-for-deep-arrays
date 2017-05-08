@@ -1,35 +1,19 @@
 <?php
-####
-#### Our goal with this class is to give the coder absolute
-#### control over setting array elements irrelevant of depth or how they are set.
-####
-#### $myArray["foo"]["bar"] = "car";
-####
-#### Currently this example does not call offsetSet but it does set the variable
-#### essentially bypassing any functionality we might want to execute.
-####
-#### For a basic example say we want to increment a counter for everytime
-#### a value is set in our array.
 
-#### myArray["foo"] = "bar"; 		// counter = 1
-#### myArray["foo"]["bar"] = "car"; // counter = 2
-#### myArray[] = "foobar"; 			// counter = 3
-
-#### By the end of this, counter should be 3. With ArryAccess this is generally not the case.
-#### We are here to learn why.
-
-
-//* Nice method for testing and learning what triggers ArrayAccess
 class DeepMagic implements ArrayAccess {
 
+	private $parent;
 	private $data;
-	private $counter=0;
+	private $counter;
 
-	public function offsetExists ($offset)
-	{
-		pr(__METHOD__, $offset);
+	protected function test () {
+		$this->counter++;
 	}
 
+	// When setting elements beyound the first depth offsetGet gets called
+	// to get a reference of the first element in the depth. $myArray[first][second][...]
+	// If 'first' element does not exists we need to create it or else offsetSet does not
+	// get called.
 	public function &offsetGet ($offset)
 	{	
 
@@ -37,34 +21,32 @@ class DeepMagic implements ArrayAccess {
 		// $myArray["foo"]["bar"]
 		//			  ^
 		//			  |----- When this element is not an array call offsetSet with empty array.
-
 		if (!isset($this->data[$offset]))
-			$this->offsetSet($offset, []);
+			$this->offsetSet($offset, new self);
 
-
-		pr($offset);
 
 		return $this->data[$offset];
 	}
 
 	public function offsetSet ($offset, $value)
 	{
-		$this->counter++;
-
-		//pr(__METHOD__, $offset, $value);
-
-        if (is_array($data)) $data = new self($data);
-        
-        if ($offset === null) { // don't forget this!
-            $this->data[] = $data;
+        if ($offset === null) {
+            $this->data[] = $value;
         } else {
-            $this->data[$offset] = $data;
+            $this->data[$offset] = $value;
         }
+
+        $this::test();
 	}
 
 	public function offsetUnset ($offset)
 	{
 		pr(__METHOD__, $offset);
+	}
+
+	public function offsetExists ($offset)
+	{
+		return $this->data[$offset];
 	}
 
 }

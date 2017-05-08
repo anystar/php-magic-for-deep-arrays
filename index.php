@@ -4,23 +4,19 @@ include "deepmagic.class.php";
 
 $myArray = new DeepMagic;
 
-// Counter = 0;
-//$myArray["foo"]["bar"] = "car";
+$myArray["foo"]["bar"]["car"][] = "sah";
+$myArray["foo"]["bar"]["car"][] = "lah";
+$myArray["foo"]["bar"]["car"][] = "lah";
 
-// Counter = 1
+pr ($myArray);
 
-//$myArray["foo"]["bar"] = "car";
-//$myArray["foo"]["bar"]["car"]["dah"] = "sah";
 
-//$myArray[0][0][0][0] = "sah";
 
-// Counter = 3
-// $myArray[] = 1;
-// $myArray[] = 2;
+// This is an excellent little problem we have here.
+//
+// Right now this code outputs an array of DeepMagic
+// classes. But the real kicker is that the $counter
+// is only ever local to the current class.
 
-// $myArray[] = 3;
-
-// This does not call offsetExists
-array_key_exists("foo", $myArray);
-
-//pr($myArray);
+// Problem: How might one make the counter count at the root level.
+// Static? Passing a reference to the root around somehow? hrmm??
